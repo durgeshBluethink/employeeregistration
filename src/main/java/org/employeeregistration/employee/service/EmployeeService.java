@@ -4,11 +4,10 @@ import org.employeeregistration.employee.entity.Employee;
 
 import java.util.List;
 
-
 public interface EmployeeService {
-    Employee saveEmployee(Employee employee);
-//    Employee getEmployeeById(Long employeesId);
+    Employee createEmployee(Employee employee);
+    Employee getEmployeeById(Long employeeId);
     List<Employee> getAllEmployees();
-//    void deleteEmployee(Long employeesId);
+    Employee updateEmployee(Long employeeId, Employee employeeDetails);
+    void deleteEmployee(Long employeeId);
 }
-

@@ -7,44 +7,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    private EmployeeRepository employeeRepository;
 
     @Override
-    public Employee saveEmployee(Employee employee) {
+    public Employee createEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
-//    @Override
-//    public Employee getEmployeeById(Long employeesId) {
-//        Optional<Employee> employee = employeeRepository.findById(employeesId);
-//        if (employee.isPresent()) {
-//            return employee.get();
-//        } else {
-//            throw new ResourceNotFoundException("Employee not found with ID: " + employeesId);
-//        }
-//    }
+    @Override
+    public Employee getEmployeeById(Long employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + employeeId));
+    }
 
     @Override
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
-//    @Override
-//    public void deleteEmployee(Long employeesId) {
-//        if (employeeRepository.existsById(employeesId)) {
-//            employeeRepository.deleteById(employeesId);
-//        } else {
-//            throw new ResourceNotFoundException("Employee not found with ID: " + employeesId);
-//        }
-//    }
+    @Override
+    public Employee updateEmployee(Long employeeId, Employee employeeDetails) {
+        Employee employee = getEmployeeById(employeeId);
+        employee.setFirstName(employeeDetails.getFirstName());
+        employee.setLastName(employeeDetails.getLastName());
+        employee.setEmail(employeeDetails.getEmail());
+        employee.setContactNumber(employeeDetails.getContactNumber());
+        employee.setAddress(employeeDetails.getAddress());
+        employee.setDateOfBirth(employeeDetails.getDateOfBirth());
+        employee.setDepartment(employeeDetails.getDepartment());
+        employee.setPosition(employeeDetails.getPosition());
+        return employeeRepository.save(employee);
+    }
+
+    @Override
+    public void deleteEmployee(Long employeeId) {
+        Employee employee = getEmployeeById(employeeId);
+        employeeRepository.delete(employee);
+    }
 }

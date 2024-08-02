@@ -1,66 +1,65 @@
 package org.employeeregistration.employee.controller;
 
-import jakarta.validation.Valid;
 import org.employeeregistration.employee.entity.Employee;
 import org.employeeregistration.employee.exception.ResourceNotFoundException;
 import org.employeeregistration.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/employees/")
+@RequestMapping("/api/employees")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping("v1")
+    @PostMapping
     public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee) {
-        Employee savedEmployee = employeeService.saveEmployee(employee);
-        return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
+        Employee createdEmployee = employeeService.createEmployee(employee);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEmployee);
     }
 
-//    private final EmployeeService employeeService;
-//
-//    public EmployeeController(EmployeeService employeeService) {
-//        this.employeeService = employeeService;
-//    }
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long employeeId) {
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        return ResponseEntity.ok(employee);
+    }
 
-
-//    @GetMapping("/{employeesId}")
-//    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long employeesId) {
-//        Employee employee = employeeService.getEmployeeById(employeesId);
-//        return new ResponseEntity<>(employee, HttpStatus.OK);
-//    }
-
-    @GetMapping("v1")
+    @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
-        return new ResponseEntity<>(employees, HttpStatus.OK);
+        return ResponseEntity.ok(employees);
     }
 
-//    @DeleteMapping("/{employeesId}")
-//    public ResponseEntity<Void> deleteEmployee(@PathVariable Long employeesId) {
-//        employeeService.deleteEmployee(employeesId);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
-//
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-//        Map<String, String> errors = ex.getBindingResult().getFieldErrors()
-//                .stream()
-//                .collect(Collectors.toMap(error -> error.getField(), error -> error.getDefaultMessage()));
-//        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(ResourceNotFoundException.class)
-//    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-//    }
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @Valid @RequestBody Employee employeeDetails) {
+        Employee updatedEmployee = employeeService.updateEmployee(employeeId, employeeDetails);
+        return ResponseEntity.ok(updatedEmployee);
+    }
+
+    @DeleteMapping("/{employeeId}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long employeeId) {
+        employeeService.deleteEmployee(employeeId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
 }
