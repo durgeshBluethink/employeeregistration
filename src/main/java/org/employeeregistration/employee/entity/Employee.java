@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeId;
+    private Long employeeId; // Changed to employeeId
 
     @NotBlank(message = "First name is required")
     private String firstName;
@@ -26,7 +26,7 @@ public class Employee {
     private String email;
 
     @NotBlank(message = "Contact number is required")
-    @Pattern(regexp = "^(\\+91)?[6789]\\d{9}$", message = "Contact number should be valid and 10 digits")
+    @Pattern(regexp = "^(\\+91|0)?[6-9][0-9]{9}$", message = "Contact number should be valid")
     private String contactNumber;
 
     @NotBlank(message = "Address is required")

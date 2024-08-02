@@ -40,7 +40,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.32</version>
+			<version>8.0.28</version>
 		</dependency>
 
 		<!-- Spring Boot Validation -->
@@ -53,6 +53,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.24</version> <!-- You might need to specify the version -->
 			<optional>true</optional>
 		</dependency>
 
@@ -63,12 +64,13 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Mockito Core -->
+		<!-- Mockito Core (if needed) -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

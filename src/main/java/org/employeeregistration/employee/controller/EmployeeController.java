@@ -1,7 +1,6 @@
 package org.employeeregistration.employee.controller;
 
 import org.employeeregistration.employee.entity.Employee;
-import org.employeeregistration.employee.exception.ResourceNotFoundException;
 import org.employeeregistration.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/v1/api/employees")
 public class EmployeeController {
 
     @Autowired
