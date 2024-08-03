@@ -1,95 +1,106 @@
-# employeeregistration
-Endpoints in EmployeeController.java
-Here are the endpoints for your API:
+Employee Registration System
+Overview
+The Employee Registration System is a Spring Boot application designed to manage employee information. It provides RESTful API endpoints for creating, retrieving, updating, and deleting employee records. The system uses MySQL for data storage and includes validation for various employee attributes.
 
+Features
+Create Employee: Add new employee records with validation for fields like email, contact number, and date of birth.
+Get All Employees: Retrieve a list of all employee records.
+Get Employee by ID: Fetch details of a specific employee by their unique ID.
+Update Employee: Modify existing employee records.
+Delete Employee: Remove an employee record from the system.
+Endpoints
 Create Employee
 
 POST /v1/api/employees
+Description: Create a new employee record.
+Request Body: JSON object with employee details.
+Response: Created employee object.
 Get All Employees
 
 GET /v1/api/employees
+Description: Retrieve a list of all employees.
+Response: Array of employee objects.
 Get Employee by ID
 
 GET /v1/api/employees/{employeeId}
+Description: Fetch details of an employee by ID.
+Response: Employee object.
 Update Employee
 
 PUT /v1/api/employees/{employeeId}
+Description: Update an existing employee record.
+Request Body: JSON object with updated employee details.
+Response: Updated employee object.
 Delete Employee
 
 DELETE /v1/api/employees/{employeeId}
+Description: Delete an employee record by ID.
+Response: No content.
 Test Invalid Employee Data
 
 POST /v1/api/employees
+Description: Test the API with invalid employee data to ensure validation works.
+Request Body: JSON object with invalid employee details.
+Response: Validation errors.
+Project Setup
+Prerequisites
+Java 11 or later
+Maven
+MySQL 8.0 or later
+Installation
+Clone the Repository
 
-1. Create Employee
-Method: POST
-URL: http://localhost:8080/v1/api/employees
-Headers:
-Content-Type: application/json
-Body (raw, JSON):
+bash
+Copy code
+git clone https://github.com/yourusername/your-repository.git
+Navigate to the Project Directory
 
-{
-  "firstName": "Amit",
-  "lastName": "Sharma",
-  "email": "amit.sharma@mail.com",
-  "contactNumber": "+919876543210",
-  "address": "123 Main Street, Delhi NCR",
-  "dateOfBirth": "1985-05-15",
-  "department": "Engineering",
-  "position": "Software Engineer"
-}
-2. Get All Employees
-Method: GET
-URL: http://localhost:8080/v1/api/employees
-Headers: None
-3. Get Employee by ID
-Method: GET
-URL: http://localhost:8080/v1/api/employees/{employeeId}
-Headers: None
-URL Parameter:
-employeeId: Replace {employeeId} with the ID of the employee you want to retrieve.
-4. Update Employee
-Method: PUT
-URL: http://localhost:8080/v1/api/employees/{employeeId}
-Headers:
-Content-Type: application/json
-Body (raw, JSON):
+bash
+Copy code
+cd your-repository
+Configure Database
 
+Update application.properties with your MySQL database details.
 
-{
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@mail.com",
-  "contactNumber": "+919876543211",
-  "address": "124 Main Street, Delhi NCR",
-  "dateOfBirth": "1990-01-01",
-  "department": "Engineering",
-  "position": "Senior Developer"
-}
-URL Parameter:
-employeeId: Replace {employeeId} with the ID of the employee you want to update.
-5. Delete Employee
-Method: DELETE
-URL: http://localhost:8080/v1/api/employees/{employeeId}
-Headers: None
-URL Parameter:
-employeeId: Replace {employeeId} with the ID of the employee you want to delete.
-6. Test Invalid Employee Data
-Method: POST
-URL: http://localhost:8080/v1/api/employees
-Headers:
-Content-Type: application/json
-Body (raw, JSON):
+Build and Run the Application
 
+bash
+Copy code
+mvn clean install
+mvn spring-boot:run
+Running Tests
+The project uses JUnit and Mockito for testing. To run unit tests:
 
-{
-  "firstName": "", // Invalid data
-  "lastName": "Doe",
-  "email": "invalid-email", // Invalid email
-  "contactNumber": "123", // Invalid contact number
-  "address": "123 Main Street, Delhi NCR",
-  "dateOfBirth": "1990-01-01",
-  "department": "Engineering",
-  "position": "Developer"
-}
-Replace http://localhost:8080 with your actual server URL if it's different.
+bash
+Copy code
+mvn test
+Unit Testing:
+
+Unit tests are located in the src/test/java directory.
+They test various components of the application including controllers, services, and repositories.
+Mockito:
+
+Mockito is used for mocking dependencies in unit tests.
+Mocks are configured to simulate interactions with services and repositories without requiring actual database access.
+Example Unit Test
+The provided tests cover:
+
+Creating Employee: Verifies that an employee is created successfully and the correct data is returned.
+Retrieving Employees: Ensures that a list of employees is retrieved correctly.
+Getting Employee by ID: Confirms that the details of a specific employee can be fetched by ID.
+Updating Employee: Checks that employee details can be updated and the updated data is returned.
+Deleting Employee: Verifies that an employee record can be deleted.
+Handling Invalid Data: Tests that validation errors are correctly returned for invalid input data.
+Contributing
+Fork the repository.
+Create a new branch (git checkout -b feature-branch).
+Commit your changes (git commit -am 'Add new feature').
+Push to the branch (git push origin feature-branch).
+Create a new Pull Request.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Contact
+For any inquiries or issues, please contact:
+
+Name: Durgesh Kumar
