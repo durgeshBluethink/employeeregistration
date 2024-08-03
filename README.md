@@ -96,7 +96,7 @@ bash
 
 Copy code
 
-git clone https://github.com/yourusername/your-repository.git
+git clone https://github.com/durgeshBluethink/employeeregistration.git
 
 Navigate to the Project Directory
 
