@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.employeeregistration.EmployeeRegistrationApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.37 s - in org.employeeregistration.EmployeeRegistrationApplicationTests
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.526 s - in org.employeeregistration.EmployeeRegistrationApplicationTests
